@@ -1,0 +1,116 @@
+================================================================================
+E-COMMERCE MICROSERVICES - TESTING ENDPOINTS GUIDE
+================================================================================
+
+This file contains the sequence of testing and the example payloads for all 
+services in the project.
+
+PREREQUISITES:
+- Eureka Server running on http://3.227.249.17:5000
+- MySQL Server AWS RDS is running under ecom-db
+
+--------------------------------------------------------------------------------
+1. USER SERVICE (Port: 8050)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8050/api/users
+Payload:
+{
+  "firstName": "Harish",
+  "lastName": "Nampally",
+  "emailAddress": "[EMAIL_ADDRESS]",
+  "contact": "9876543210",
+  "credential": {
+    "username": "harishnampally",
+    "password": "[PASSWORD]",
+    "roleBasedAuthority": "ROLE_USER"
+  }
+}
+
+[GET] http://3.227.249.17:8050/api/users/1
+
+--------------------------------------------------------------------------------
+2. PRODUCT SERVICE (Port: 8051)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8051/products
+Payload:
+{
+  "name": "Sony PlayStation 5",
+  "description": "Next-gen gaming console",
+  "price": 49999.00,
+  "stock": 50
+}
+
+[GET] http://3.227.249.17:8051/products/1
+
+--------------------------------------------------------------------------------
+3. FAVOURITE SERVICE (Port: 8056)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8056/favourites
+Payload:
+{
+  "userId": 1,
+  "productId": 1
+}
+
+[GET] http://3.227.249.17:8056/favourites/1
+
+[DELETE] http://3.227.249.17:8056/favourites?userId=1&productId=1
+
+--------------------------------------------------------------------------------
+4. CART SERVICE (Port: 8052)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8052/cart
+Payload:
+{
+  "userId": 1,
+  "productId": 1,
+  "quantity": 1
+}
+
+[GET] http://3.227.249.17:8052/cart/1
+
+[DELETE] http://3.227.249.17:8052/cart/remove/1?userId=1
+
+--------------------------------------------------------------------------------
+5. ORDER SERVICE (Port: 8053)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8053/orders
+Payload:
+{
+  "userId": 1
+}
+
+[GET] http://3.227.249.17:8053/orders/1
+[GET] http://3.227.249.17:8053/orders/user/1
+
+--------------------------------------------------------------------------------
+6. PAYMENT SERVICE (Port: 8054)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8054/payments
+Payload:
+{
+  "orderId": 1,
+  "userId": 1,
+  "amount": 49999.00
+}
+
+--------------------------------------------------------------------------------
+7. SHIPPING SERVICE (Port: 8055)
+--------------------------------------------------------------------------------
+
+[POST] http://3.227.249.17:8055/shipping
+Payload:
+{
+  "orderId": 1,
+  "shippingMethod": "EXPRESS",
+  "carrier": "BlueDart"
+}
+
+[PUT] http://3.227.249.17:8055/shipping/1/status/DELIVERED
+--------------------------------------------------------------------------------

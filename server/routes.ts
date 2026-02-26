@@ -174,6 +174,29 @@ export async function registerRoutes(
     res.status(204).send();
   });
 
+  // Production Testing Proxy Routes
+  const proxyRequest = async (targetUrl: string, req: any, res: any) => {
+    try {
+      const response = await fetch(targetUrl, {
+        method: req.method,
+        headers: { 'Content-Type': 'application/json' },
+        body: ['POST', 'PUT', 'PATCH'].includes(req.method) ? JSON.stringify(req.body) : undefined
+      });
+      const data = await response.json().catch(() => ({}));
+      res.status(response.status).json(data);
+    } catch (error) {
+      res.status(500).json({ message: "External service error", error: String(error) });
+    }
+  };
+
+  app.post('/api/production/users', (req, res) => proxyRequest('http://3.227.249.17:8050/api/users', req, res));
+  app.post('/api/production/products', (req, res) => proxyRequest('http://3.227.249.17:8051/products', req, res));
+  app.post('/api/production/favourites', (req, res) => proxyRequest('http://3.227.249.17:8056/favourites', req, res));
+  app.post('/api/production/cart', (req, res) => proxyRequest('http://3.227.249.17:8052/cart', req, res));
+  app.post('/api/production/orders', (req, res) => proxyRequest('http://3.227.249.17:8053/orders', req, res));
+  app.post('/api/production/payments', (req, res) => proxyRequest('http://3.227.249.17:8054/payments', req, res));
+  app.post('/api/production/shipping', (req, res) => proxyRequest('http://3.227.249.17:8055/shipping', req, res));
+
   // Orders Routes
   app.get(api.orders.list.path, async (req, res) => {
     const userId = (req as any).user?.id;

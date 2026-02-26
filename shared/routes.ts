@@ -54,6 +54,150 @@ export const api = {
       }
     }
   },
+  admin: {
+    login: {
+      method: 'POST' as const,
+      path: '/api/admin/login' as const,
+      input: z.object({
+        email: z.string().email(),
+        password: z.string(),
+      }),
+      responses: {
+        200: z.object({ user: z.custom<Omit<User, 'password'>>(), token: z.string() }),
+        401: errorSchemas.unauthorized,
+      },
+    },
+  },
+  production: {
+    users: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/users' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    products: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/products' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    favourites: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/favourites' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    cart: {
+      add: {
+        method: 'POST' as const,
+        path: '/api/production/cart' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    orders: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/orders' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    payments: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/payments' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    shipping: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/shipping' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+  },
+  admin: {
+    login: {
+      method: 'POST' as const,
+      path: '/api/admin/login' as const,
+      input: z.object({
+        email: z.string().email(),
+        password: z.string(),
+      }),
+      responses: {
+        200: z.object({ user: z.custom<Omit<User, 'password'>>(), token: z.string() }),
+        401: errorSchemas.unauthorized,
+      },
+    },
+  },
+  production: {
+    users: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/users' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    products: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/products' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    favourites: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/favourites' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    cart: {
+      add: {
+        method: 'POST' as const,
+        path: '/api/production/cart' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    orders: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/orders' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    payments: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/payments' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+    shipping: {
+      create: {
+        method: 'POST' as const,
+        path: '/api/production/shipping' as const,
+        input: z.any(),
+        responses: { 201: z.any() },
+      },
+    },
+  },
   products: {
     list: {
       method: 'GET' as const,

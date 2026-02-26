@@ -1,0 +1,209 @@
+You are a senior frontend architect and product-grade UI engineer.
+
+Your task is to design and build a production-level, premium frontend for the following backend microservices project:
+
+Repository:
+https://github.com/nampallyharish4/Ecom-MicroServices.git
+
+1. First — Understand the Backend (MANDATORY)
+
+Analyze the repository deeply and extract:
+
+All microservices and their responsibilities
+
+API Gateway routes
+
+Authentication & authorization flow (JWT / OAuth / Session etc.)
+
+Service-to-service communication (REST / Kafka / RabbitMQ / Events / Saga if exists)
+
+Database per service and data ownership
+
+Product, Cart, Order, Payment, User domain models
+
+Error handling & response formats
+
+API request/response contracts
+
+Generate a clear backend map before building UI.
+
+2. Frontend Goal
+
+Build a Premium E-Commerce Website focused on:
+
+Shoes (Primary category)
+
+Men’s Wear (Secondary category)
+
+Target feel:
+Luxury / Premium / Minimal / Clean / Fast / Modern
+
+Think: Nike / Zara / Adidas / Apple-level UI polish.
+
+3. Tech Requirements
+
+Use modern production stack:
+
+React (Next.js preferred)
+
+TypeScript
+
+Tailwind or Styled Components
+
+Responsive (Mobile + Desktop)
+
+API integration with backend microservices
+
+JWT Auth integration
+
+State management (Redux Toolkit / Zustand / React Query)
+
+Optimized performance (lazy loading, caching)
+
+Clean architecture
+
+4. Core Features to Implement
+User Features
+
+Signup / Login / JWT Auth
+
+Profile management
+
+Address management
+
+Product Features
+
+Category browsing (Shoes / Mens Wear)
+
+Smart filters (Size, Price, Brand, Color)
+
+Search
+
+Product detail page (premium layout)
+
+Cart & Checkout
+
+Add / Remove / Update cart
+
+Real-time price calculation
+
+Coupon support (if backend supports)
+
+Order placement
+
+Payment flow (mock if payment service incomplete)
+
+Orders
+
+Order history
+
+Order tracking UI
+
+Status timeline
+
+5. Premium UI Requirements
+
+Design must feel high-end, not generic.
+
+Include:
+
+Large hero banner
+
+Clean typography
+
+High contrast product cards
+
+Smooth animations
+
+Micro-interactions
+
+Skeleton loading
+
+Elegant empty states
+
+Sticky header with search
+
+Luxury dark/light theme option
+
+6. Pages Required
+
+Home (Premium showcase)
+
+Shoes Category
+
+Mens Wear Category
+
+Product Detail
+
+Cart
+
+Checkout
+
+Orders
+
+Login / Signup
+
+Profile
+
+Error / 404
+
+Loading states
+
+7. Engineering Expectations
+
+Follow real production standards:
+
+Clean folder structure
+
+Reusable components
+
+API layer abstraction
+
+Error boundaries
+
+Environment config
+
+Secure token handling
+
+Scalable architecture
+
+Comment major logic
+
+README with run instructions
+
+8. Deliverables
+
+Provide:
+
+Frontend architecture diagram
+
+Folder structure
+
+UI wireframe explanation
+
+API integration mapping (Frontend ↔ Microservices)
+
+Full working frontend code
+
+Instructions to run locally
+
+Suggestions to improve UX + performance
+
+9. Quality Level
+
+This is not a basic UI.
+Build like a funded startup / FAANG-level frontend.
+
+Focus on:
+
+Performance
+
+UX polish
+
+Scalability
+
+Clean engineering
+
+Real production readiness
+
+If backend endpoints are unclear, infer logically from service design and create clean API contracts.

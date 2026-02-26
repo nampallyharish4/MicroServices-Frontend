@@ -1,9 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@shared/routes";
-import { authFetch } from "@/lib/auth-fetch";
-import { useToast } from "@/hooks/use-toast";
-import { useLocation } from "wouter";
-import { z } from "zod";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { api } from '@shared/routes';
+import { authFetch } from '@/lib/auth-fetch';
+import { useToast } from '@/hooks/use-toast';
+import { useLocation } from 'wouter';
+import { z } from 'zod';
 
 export function useAuth() {
   return useQuery({
@@ -17,8 +17,8 @@ export function useAuth() {
         localStorage.removeItem('token');
         return null;
       }
-      if (!res.ok) throw new Error("Failed to fetch user");
-      
+      if (!res.ok) throw new Error('Failed to fetch user');
+
       const data = await res.json();
       return api.auth.me.responses[200].parse(data);
     },
@@ -42,7 +42,7 @@ export function useLogin() {
 
       if (!res.ok) {
         const error = await res.json();
-        throw new Error(error.message || "Login failed");
+        throw new Error(error.message || 'Login failed');
       }
 
       const data = await res.json();
@@ -51,12 +51,16 @@ export function useLogin() {
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
       queryClient.setQueryData([api.auth.me.path], data.user);
-      toast({ title: "Welcome back", description: "Successfully logged in." });
-      setLocation("/");
+      toast({ title: 'Welcome back', description: 'Successfully logged in.' });
+      setLocation('/');
     },
     onError: (error: Error) => {
-      toast({ title: "Login Failed", description: error.message, variant: "destructive" });
-    }
+      toast({
+        title: 'Login Failed',
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
   });
 }
 
@@ -76,7 +80,7 @@ export function useRegister() {
 
       if (!res.ok) {
         const error = await res.json();
-        throw new Error(error.message || "Registration failed");
+        throw new Error(error.message || 'Registration failed');
       }
 
       const data = await res.json();
@@ -85,12 +89,16 @@ export function useRegister() {
     onSuccess: (data) => {
       localStorage.setItem('token', data.token);
       queryClient.setQueryData([api.auth.me.path], data.user);
-      toast({ title: "Account Created", description: "Welcome to the club." });
-      setLocation("/");
+      toast({ title: 'Account Created', description: 'Welcome to the club.' });
+      setLocation('/');
     },
     onError: (error: Error) => {
-      toast({ title: "Registration Failed", description: error.message, variant: "destructive" });
-    }
+      toast({
+        title: 'Registration Failed',
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
   });
 }
 
@@ -103,8 +111,11 @@ export function useLogout() {
     localStorage.removeItem('token');
     queryClient.setQueryData([api.auth.me.path], null);
     queryClient.clear(); // Clear cart/orders
-    toast({ title: "Logged out", description: "You have been logged out securely." });
-    setLocation("/login");
+    toast({
+      title: 'Logged out',
+      description: 'You have been logged out securely.',
+    });
+    setLocation('/login');
   };
 
   return { logout };

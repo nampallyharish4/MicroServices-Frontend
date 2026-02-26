@@ -1,19 +1,19 @@
-import { Switch, Route } from "wouter";
-import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/not-found";
+import { Switch, Route } from 'wouter';
+import { queryClient } from './lib/queryClient';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/toaster';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import NotFound from '@/pages/not-found';
 
 // Pages
-import Home from "./pages/home";
-import Category from "./pages/category";
-import ProductDetail from "./pages/product";
-import Cart from "./pages/cart";
-import Checkout from "./pages/checkout";
-import Orders from "./pages/orders";
-import Auth from "./pages/auth";
-import Profile from "./pages/profile";
+import Home from './pages/home';
+import Category from './pages/category';
+import ProductDetail from './pages/product';
+import Cart from './pages/cart';
+import Checkout from './pages/checkout';
+import Orders from './pages/orders';
+import Auth from './pages/auth';
+import Profile from './pages/profile';
 
 function Router() {
   return (
@@ -26,7 +26,7 @@ function Router() {
       <Route path="/orders" component={Orders} />
       <Route path="/login" component={Auth} />
       <Route path="/profile" component={Profile} />
-      
+
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

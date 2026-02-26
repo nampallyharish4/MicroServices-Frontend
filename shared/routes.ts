@@ -54,6 +54,20 @@ export const api = {
       }
     }
   },
+  admin: {
+    login: {
+      method: 'POST' as const,
+      path: '/api/admin/login' as const,
+      input: z.object({
+        email: z.string().email(),
+        password: z.string(),
+      }),
+      responses: {
+        200: z.object({ user: z.custom<Omit<User, 'password'>>(), token: z.string() }),
+        401: errorSchemas.unauthorized,
+      },
+    },
+  },
   products: {
     list: {
       method: 'GET' as const,
@@ -73,6 +87,34 @@ export const api = {
       responses: {
         200: z.custom<Product>(),
         404: errorSchemas.notFound,
+      },
+    },
+    create: {
+      method: 'POST' as const,
+      path: '/api/admin/products' as const,
+      input: insertProductSchema,
+      responses: {
+        201: z.custom<Product>(),
+        401: errorSchemas.unauthorized,
+      },
+    },
+    update: {
+      method: 'PUT' as const,
+      path: '/api/admin/products/:id' as const,
+      input: insertProductSchema.partial(),
+      responses: {
+        200: z.custom<Product>(),
+        404: errorSchemas.notFound,
+        401: errorSchemas.unauthorized,
+      },
+    },
+    delete: {
+      method: 'DELETE' as const,
+      path: '/api/admin/products/:id' as const,
+      responses: {
+        204: z.void(),
+        404: errorSchemas.notFound,
+        401: errorSchemas.unauthorized,
       },
     },
   },

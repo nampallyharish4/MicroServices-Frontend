@@ -14,6 +14,8 @@ import Checkout from "./pages/checkout";
 import Orders from "./pages/orders";
 import Auth from "./pages/auth";
 import Profile from "./pages/profile";
+import AdminLogin from "./pages/admin-login";
+import AdminDashboard from "./pages/admin-dashboard";
 
 function Router() {
   return (
@@ -26,6 +28,8 @@ function Router() {
       <Route path="/orders" component={Orders} />
       <Route path="/login" component={Auth} />
       <Route path="/profile" component={Profile} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/dashboard" component={AdminDashboard} />
       
       {/* Fallback to 404 */}
       <Route component={NotFound} />

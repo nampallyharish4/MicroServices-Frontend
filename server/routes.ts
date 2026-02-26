@@ -101,6 +101,67 @@ export async function registerRoutes(
     res.json(product);
   });
 
+  // Admin Product Routes
+  const adminOnly = async (req: any, res: any, next: any) => {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
+    const user = await storage.getUser(userId);
+    if (!user?.isAdmin) return res.status(403).json({ message: "Forbidden" });
+    next();
+  };
+
+  app.post(api.admin.login.path, async (req, res) => {
+    try {
+      const input = api.admin.login.input.parse(req.body);
+      const user = await storage.getUserByEmail(input.email);
+      
+      if (!user || user.password !== input.password || !user.isAdmin) {
+        return res.status(401).json({ message: "Invalid admin credentials" });
+      }
+      
+      const { password, ...userWithoutPassword } = user;
+      res.json({ user: userWithoutPassword, token: user.id.toString() });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      throw err;
+    }
+  });
+
+  app.post(api.products.create.path, adminOnly, async (req, res) => {
+    try {
+      const input = api.products.create.input.parse(req.body);
+      const product = await storage.createProduct(input);
+      res.status(201).json(product);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      throw err;
+    }
+  });
+
+  app.put(api.products.update.path, adminOnly, async (req, res) => {
+    try {
+      const input = api.products.update.input.parse(req.body);
+      const product = await storage.updateProduct(Number(req.params.id), input);
+      if (!product) return res.status(404).json({ message: "Product not found" });
+      res.json(product);
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      throw err;
+    }
+  });
+
+  app.delete(api.products.delete.path, adminOnly, async (req, res) => {
+    const success = await storage.deleteProduct(Number(req.params.id));
+    if (!success) return res.status(404).json({ message: "Product not found" });
+    res.status(204).send();
+  });
+
   // Cart Routes
   app.get(api.cart.list.path, async (req, res) => {
     const userId = (req as any).user?.id;
@@ -291,6 +352,7 @@ async function seedDatabase() {
         email: "demo@example.com",
         password: "password123",
         name: "Demo User",
+        isAdmin: false,
         address: {
           street: "123 Main St",
           city: "San Francisco",
@@ -298,6 +360,17 @@ async function seedDatabase() {
           zip: "94105",
           country: "USA"
         }
+      });
+    }
+
+    const existingAdmin = await storage.getUserByEmail("admin@example.com");
+    if (!existingAdmin) {
+      await storage.createUser({
+        email: "admin@example.com",
+        password: "adminpassword",
+        name: "Admin User",
+        isAdmin: true,
+        address: {}
       });
     }
   }
